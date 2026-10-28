@@ -14,7 +14,7 @@ def data_cleaning(df: pd.DataFrame) -> pd.DataFrame:
         pd.DataFrame: The cleaned DataFrame.
     """
     # Drop the ID column if it exists
-    df= df.drop(columns=['ID'])
+    df= df.drop(columns=['ID'], errors='ignore')
 
     # converting temporal features to date time objects
     cols=['CropTillageDate','RcNursEstDate','SeedingSowingTransplanting','Harv_date','Threshing_date']
