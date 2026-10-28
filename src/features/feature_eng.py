@@ -34,7 +34,8 @@ def eng_features(df: pd.DataFrame) -> pd.DataFrame:
     df=df.copy()
     # agronomic features
     df['GrowingSeasonDays'] = (df['Harv_date'] - df['SeedingSowingTransplanting']).dt.days
-    df['NurseryToTransplantDays'] = (df['SeedingSowingTransplanting'] - df['RcNursEstDate']).dt.days
+    # broadcast crops have no nursery, -1 marks not applicable
+    df['NurseryToTransplantDays'] = (df['SeedingSowingTransplanting'] - df['RcNursEstDate']).dt.days.fillna(-1)
     df['TillageToTransplantDays'] = (df['SeedingSowingTransplanting'] - df['CropTillageDate']).dt.days
     df['HarvestToThreshingDays'] = (df['Threshing_date'] - df['Harv_date']).dt.days
     df['PlantingMonth'] = df['SeedingSowingTransplanting'].dt.month

@@ -51,5 +51,11 @@ def data_cleaning(df: pd.DataFrame) -> pd.DataFrame:
     df['TransplantingIrrigationHours'] = df['TransplantingIrrigationHours'].fillna(0)
     df['TransplantingIrrigationSource'] = df['TransplantingIrrigationSource'].fillna('No irrigation')
 
+    # addressing missingness in basal fertilizer (BasalDAP and BasalUrea are also empty for these rows)
+    df['CropbasalFerts'] = df['CropbasalFerts'].fillna('No basal fertilizer used')
+
+    # direct-sown crops have no pits or seedlings, -1 marks not applicable
+    df['SeedlingsPerPit'] = df['SeedlingsPerPit'].fillna(-1)
+
    
     return df
